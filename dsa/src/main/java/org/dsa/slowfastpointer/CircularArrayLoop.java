@@ -1,2 +1,4 @@
-package org.dsa.slowfastpointer;public class CircularArrayLoop {
+package org.dsa.slowfastpointer;
+
+public class CircularArrayLoop {
 }
