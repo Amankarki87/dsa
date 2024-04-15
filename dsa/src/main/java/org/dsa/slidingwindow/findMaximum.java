@@ -90,7 +90,8 @@ public class findMaximum {
             currentWindow.add(i);
         }
 
-        output[0] = currentWindow.getFirst();
+        output[0] = nums[currentWindow.getFirst()];
+        System.out.println("output at 0th index is " +nums[currentWindow.getFirst()]);
 
         for (int i = w;i< length;i++) {
             cleanup(i,currentWindow,nums);
@@ -100,7 +101,10 @@ public class findMaximum {
             }
 
             currentWindow.add(i);
-            output[i-w + 1] = currentWindow.getFirst();
+            output[i-w + 1] = nums[currentWindow.getFirst()];
+
+            int currentIndex = i - w + 1;
+            System.out.println("output at " + currentIndex + " value is " +nums[currentWindow.getFirst()]);
         }
 
         return output;
@@ -108,7 +112,7 @@ public class findMaximum {
 
     private static Deque<Integer> cleanup(int index,Deque<Integer> currentWindow,int [] nums) {
         while (currentWindow.size() != 0 && nums[index] >= nums[currentWindow.getLast()]) {
-            currentWindow.remove(currentWindow.size() - 1);
+            currentWindow.removeLast();
         }
 
         return currentWindow;
