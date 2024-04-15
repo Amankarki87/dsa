@@ -1,6 +1,8 @@
 package org.dsa.slidingwindow;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 
 public class findMaximum {
 
@@ -34,7 +36,7 @@ public class findMaximum {
         return output;
     }
 
-    // sliding window
+    // sliding window using ArrayList
     public static int[] findmax(int [] nums, int w) {
 
         int length = nums.length;
@@ -72,6 +74,45 @@ public class findMaximum {
         return output;
     }
 
+    // sliding window using deque
+    public static int[] findMaxUsingDeque(int[] nums, int w) {
+        int length = nums.length;
+
+        if (length == 1) {
+            return nums;
+        }
+
+        int[] output = new int[length - w + 1];
+        Deque<Integer> currentWindow = new ArrayDeque<>();
+
+        for (int i = 0; i < w;i++) {
+            cleanup(i,currentWindow,nums);
+            currentWindow.add(i);
+        }
+
+        output[0] = currentWindow.getFirst();
+
+        for (int i = w;i< length;i++) {
+            cleanup(i,currentWindow,nums);
+
+            if (!currentWindow.isEmpty() && currentWindow.getFirst() <= (i - w)) {
+                currentWindow.removeFirst();
+            }
+
+            currentWindow.add(i);
+            output[i-w + 1] = currentWindow.getFirst();
+        }
+
+        return output;
+    }
+
+    private static Deque<Integer> cleanup(int index,Deque<Integer> currentWindow,int [] nums) {
+        while (currentWindow.size() != 0 && nums[index] >= nums[currentWindow.getLast()]) {
+            currentWindow.remove(currentWindow.size() - 1);
+        }
+
+        return currentWindow;
+    }
     private static ArrayList<Integer> cleanup(int index,ArrayList<Integer> currentWindow,int [] nums) {
         while (currentWindow.size() != 0 && nums[index] >= nums[currentWindow.get(currentWindow.size() - 1)]) {
             currentWindow.remove(currentWindow.size() - 1);
@@ -84,7 +125,7 @@ public class findMaximum {
         int[] arr = new int[]{1,2,3,4,5,6,7,8,9,10};
         int window = 3;
 
-        findMaximumInSlidingWindow(arr,window);
+        findMaxUsingDeque(arr,window);
     }
 
 }
