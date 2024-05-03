@@ -28,7 +28,7 @@ public class findMaximum {
                 counter += 1;
             }
 
-           output[i] = maxNumber;
+            output[i] = maxNumber;
             System.out.println("Output at index " +i + "is "+ output[i]);
             counter = 0;
         }
@@ -126,8 +126,8 @@ public class findMaximum {
     }
 
     public static void main(String[] args) {
-        int[] arr = new int[]{1,2,3,4,5,6,7,8,9,10};
-        int window = 3;
+        int[] arr = new int[]{1,-1};
+        int window = 1;
 
         findMaxUsingDeque(arr,window);
     }
